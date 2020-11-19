@@ -1,51 +1,46 @@
-import Head from 'next/head'
-
+import Head from "next/head";
+import NavBar from "../components/NavBar";
+import Link from "next/link";
 export default function Home() {
   return (
     <div className="container">
       <Head>
-        <title>Create Next App</title>
+        <title>RMD</title>
         <link rel="icon" href="/favicon.ico" />
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkz0CxXkXP6NQ6LJOvB6VnWYc9oiSRV3c&libraries=places"></script>
       </Head>
-
+      <NavBar />
       <main>
-        <h1 className="title">
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className="description">
-          Get started by editing <code>pages/index.js</code>
-        </p>
+        <h1 className="title">RATEMYDELIVERIES.COM</h1>
+        <h4 className="description">
+          A place where you can rate your delivery experience.
+        </h4>
 
         <div className="grid">
-          <a href="https://nextjs.org/docs" className="card">
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className="card">
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className="card"
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
           <a
             href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
             className="card"
           >
-            <h3>Deploy &rarr;</h3>
+            <p>RATE A</p>
+            <h2>Delivery Person</h2>
+          </a>
+          <a href="https://nextjs.org/learn" className="card">
+            <p>RATE A</p>
+            <h2>Business</h2>
+          </a>
+
+          <a href="https://nextjs.org/docs" className="card">
+            <h2>Ratings</h2>
             <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
+              Find out which delivering business or person has the highest
+              rating{" "}
             </p>
           </a>
         </div>
+        <p>
+          <br /> Want to know how this works ?? click ->{" "}
+          <Link href="/tips">here</Link> .
+        </p>
       </main>
 
       <footer>
@@ -54,7 +49,7 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by{" "}
           <img src="/vercel.svg" alt="Vercel Logo" className="logo" />
         </a>
       </footer>
@@ -62,7 +57,6 @@ export default function Home() {
       <style jsx>{`
         .container {
           min-height: 100vh;
-          padding: 0 0.5rem;
           display: flex;
           flex-direction: column;
           justify-content: center;
@@ -145,14 +139,13 @@ export default function Home() {
           flex-wrap: wrap;
 
           max-width: 800px;
-          margin-top: 3rem;
         }
 
         .card {
           margin: 1rem;
           flex-basis: 45%;
           padding: 1.5rem;
-          text-align: left;
+          text-align: center;
           color: inherit;
           text-decoration: none;
           border: 1px solid #eaeaea;
@@ -167,14 +160,15 @@ export default function Home() {
           border-color: #0070f3;
         }
 
-        .card h3 {
+        .card h2 {
           margin: 0 0 1rem 0;
-          font-size: 1.5rem;
+          font-size: 1.7rem;
         }
 
         .card p {
           margin: 0;
-          font-size: 1.25rem;
+          font-size: 1.15rem;
+          color: grey;
           line-height: 1.5;
         }
 
@@ -205,5 +199,5 @@ export default function Home() {
         }
       `}</style>
     </div>
-  )
+  );
 }

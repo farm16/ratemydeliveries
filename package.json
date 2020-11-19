@@ -8,8 +8,11 @@
     "start": "next start"
   },
   "dependencies": {
+    "google-map-react": "^2.1.9",
     "next": "^10.0.0",
     "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "react-dom": "16.13.1",
+    "react-places-autocomplete": "^7.3.0",
+    "shortid": "^2.2.16"
   }
 }
