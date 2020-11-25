@@ -8,6 +8,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "@blueprintjs/core": "^3.36.0",
+    "firebase": "^8.1.1",
     "google-map-react": "^2.1.9",
     "next": "^10.0.0",
     "react": "16.13.1",

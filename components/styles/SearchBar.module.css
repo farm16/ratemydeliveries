@@ -1,38 +1,36 @@
-.searchBarContainer{
+.searchBarContainer {
   width: 30vw;
 }
 .searchBarInput {
-  width: 100%; 
+  width: 100%;
   border: none;
   font-size: 15px;
   border-radius: 20px;
   padding: 7px;
   font-weight: bold;
 }
-.searchBarInput::placeholder{
+.searchBarInput::placeholder {
   color: rgb(150, 150, 150);
   text-align: center;
-
 }
-.searchBarActive{
+.searchBarActive {
   z-index: 1000;
   background-color: whitesmoke;
-  position: absolute ;
-  margin: auto ;
+  position: absolute;
+  margin: auto;
   border: none;
   width: 30vw;
   border-radius: 5px;
 }
-.searchBarActiveDropdown { 
+.searchBarActiveDropdown {
   background-color: rgba(127, 255, 212, 0.432);
   margin-bottom: 10px;
   margin-top: 10px;
-  padding: 5px; 
+  padding: 5px;
   font-size: 15px;
-
 }
 
-.searchBarActiveDropdown:hover{
-  background-color: rgba(222, 184, 135, 0.418); 
-   font-weight: bold;
+.searchBarActiveDropdown:hover {
+  background-color: rgba(222, 184, 135, 0.418);
+  font-weight: bold;
 }
