@@ -2,12 +2,11 @@ import { Header } from "../components/Header";
 import { NavBar } from "../components/layout/NavBar";
 import Main from "../components/layout/Main";
 import { Footer } from "../components/layout/Footer";
-
 export default function Home() {
   return (
     <div className="container">
       <Header />
-      <NavBar />
+      {/* <NavBar /> */}
       <Main />
       <Footer />
 

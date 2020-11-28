@@ -1,15 +1,23 @@
 import { useState, useEffect } from "react";
 import { firebase } from "../firebase";
 
-export const useTask = (selectedProject) => {
-  const [task, setTask] = useState([]);
-
+export const useGetBusiness = (businessAddress) => {
+  const [business, setBusiness] = useState([]);
+  console.log('getting data from "businessAddress"');
   useEffect(() => {
-    let unsubscribe = firebase
+    firebase
       .firestore()
-      .collection("task")
-      .where("userId", "==", "cffr90");
+      .collection("business")
+      // .where("name", "==", businessAddress)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach(function (doc) {
+          // doc.data() is never undefined for query doc snapshots
+          console.log(doc.id, " => ", doc.data());
+        });
+      })
+      .catch((error) => console.log("Error fetching from firebase ", error));
+  }, [business]);
 
-    unsubscribe = selectedProject;
-  }, []);
+  return { business, setBusiness };
 };

@@ -1,47 +1,114 @@
 import { useState } from "react";
 import { Icon } from "@blueprintjs/core";
-import shortid from "shortid";
-import PlacesAutocomplete, {
-  geocodeByAddress,
-  getLatLng,
-} from "react-places-autocomplete";
+import ReactStars from "react-stars";
+import { useGetBusiness } from "../hooks";
+// import { calculateAverageRate } from "../helpers";
+import { DeliveryPersonLookUpInput } from "./inputs/DeliveryPersonLookUpInput";
+import { BusinessLookUpInput } from "./inputs/BusinessLookUpInput";
 
 export default function RateDelivery({ setState }) {
-  const [searchByName, setsearchByName] = useState(true);
+  // const { business } = useGetBusiness("mi resturant");
+  // console.log("->", business);
+  const [rateByName, setrateByName] = useState(true);
+  const [speed, setSpeed] = useState(0.0);
+  const [quality, setQuality] = useState(0.0);
+  const [courtesy, setCourtesy] = useState(0.0);
+  const [name, setName] = useState("");
+  const [businessInfo, setBusinessInfo] = useState({
+    search: "",
+    formatted_address: "",
+    formatted_phone_number: "",
+    name: "",
+    value: "",
+    placeId: "",
+    business_status: "",
+  });
 
+  const handleSendRate = (e) => {
+    e.preventDefault();
+    console.log({ businessInfo, name, speed, quality, courtesy });
+
+    /*
+    console.log({ businessInfo, name, speed, quality, courtesy });
+    */
+  };
   return (
     <div className="container">
-      <h1>Find A Delivery Guy</h1>
-      <p>Search by:</p>
-      <div className="searchBy">
+      <h1>Rate Your Delivery</h1>
+      <p>Rate the</p>
+      <div className="rateBy">
         <h2
-          className="btn-searchByName"
-          onClick={() => (searchByName ? null : setsearchByName((s) => !s))}
+          className="btn-rateByName"
+          onClick={() => (rateByName ? null : setrateByName((s) => !s))}
         >
-          <Icon icon="person" color={searchByName ? "#fff" : "#000"} /> Name
+          <Icon
+            icon="user"
+            color={rateByName ? "#fff" : "#000"}
+            iconSize={18}
+          />{" "}
+          Person
         </h2>
         <h2
-          className="btn-searchByBusiness"
-          onClick={() => (searchByName ? setsearchByName((s) => !s) : null)}
+          className="btn-rateByBusiness"
+          onClick={() => (rateByName ? setrateByName((s) => !s) : null)}
         >
-          <Icon icon="shop" color={searchByName ? "#000" : "#fff"} /> Business
+          <Icon
+            icon="shop"
+            color={rateByName ? "#000" : "#fff"}
+            iconSize={18}
+          />{" "}
+          Place
         </h2>
       </div>
-      <form>
-        <label>
-          {searchByName
-            ? "I am looking for a delivery person at:"
-            : "I'm looking for a delivery person that works at "}
-        </label>
-        <SearchBusiness />
-        {searchByName ? (
+      <div className="rate-form">
+        <p>{rateByName ? "My order came from" : "I ordered from:"}</p>
+        <BusinessLookUpInput
+          businessInfo={businessInfo}
+          setBusinessInfo={setBusinessInfo}
+        />
+        {rateByName ? (
           <>
-            <label>named</label>
-            <SearchPerson />
+            <p>{"delivered by"}</p>
+            <DeliveryPersonLookUpInput setName={setName} />
           </>
         ) : null}
-        <button className="btn-search">SEARCH</button>
-      </form>
+        <div className="stars-container">
+          <Icon icon="walk" color="gray" iconSize={20} />
+          <p>Speed</p>{" "}
+          <ReactStars
+            value={speed}
+            count={5}
+            onChange={(s) => setSpeed(s)}
+            size={45}
+            color2={"#ffd700"}
+          />
+        </div>{" "}
+        <div className="stars-container">
+          <Icon icon="clean" color="gray" iconSize={20} />
+          <p>Quality</p>{" "}
+          <ReactStars
+            value={quality}
+            count={5}
+            onChange={(s) => setQuality(s)}
+            size={45}
+            color2={"#ffd700"}
+          />{" "}
+        </div>
+        <div className="stars-container">
+          <Icon icon="heart" color="gray" iconSize={15} />
+          <p>Courtesy</p>
+          <ReactStars
+            value={courtesy}
+            count={5}
+            onChange={(s) => setCourtesy(s)}
+            size={45}
+            color2={"#ffd700"}
+          />
+        </div>
+        <button className="btn-rate" onClick={handleSendRate}>
+          SEND
+        </button>
+      </div>
       <button className="btn-cancel" onClick={() => setState("")}>
         Cancel
       </button>
@@ -52,18 +119,33 @@ export default function RateDelivery({ setState }) {
             flex-direction: column;
             align-items: stretch;
           }
-          .searchBy {
+          .stars-container {
+            // background-color: red;
+            // align-self: center;
+            display: flex;
+            align-items: center;
+          }
+          .stars-container p {
+            margin: 0;
+            margin-left: 5px;
+            margin-right: auto;
+            padding-right: 15px;
+          }
+          .rateBy {
             display: flex;
             justify-content: space-around;
             margin-bottom: 20px;
             padding: 10px;
           }
-          .searchBy h1 {
+          .rateBy h1 {
             margin: 0px;
           }
           p {
-            font-size: 18px;
+            text-align: center;
             margin: 10px 0px;
+            font-size: 23px;
+            margin-bottom: 10px;
+            font-weight: 100;
           }
           h1 {
             text-align: center;
@@ -78,30 +160,34 @@ export default function RateDelivery({ setState }) {
             cursor: pointer;
             // opacity: 0.5;
           }
-          .btn-searchByName {
-            color: ${searchByName ? "#fff" : "#000"};
-            border-color: ${searchByName ? "#fff" : "#000"};
-            background-color: ${searchByName ? "#56e8a1" : "#fff"};
-            opacity: ${searchByName ? "1" : ".1"};
+          .btn-rateByName {
+            color: ${rateByName ? "#fff" : "#000"};
+            border-color: ${rateByName ? "#fff" : "#000"};
+            background-color: ${rateByName ? "#56e8a1" : "#fff"};
+            opacity: ${rateByName ? "1" : ".1"};
           }
-          .btn-searchByBusiness {
-            color: ${!searchByName ? "#fff" : "#000"};
-            border-color: ${!searchByName ? "#fff" : "#000"};
-            background-color: ${!searchByName ? "#56e8a1" : "#fff"};
-            opacity: ${!searchByName ? "1" : ".1"};
+          .btn-rateByBusiness {
+            color: ${!rateByName ? "#fff" : "#000"};
+            border-color: ${!rateByName ? "#fff" : "#000"};
+            background-color: ${!rateByName ? "#56e8a1" : "#fff"};
+            opacity: ${!rateByName ? "1" : ".1"};
           }
-          form {
+          stars {
+            background-color: red;
+          }
+          rate-form {
             display: flex;
             flex-direction: column;
             align-items: stretch;
             text-align: center;
           }
-          form label {
+          rate-form p {
             font-size: 23px;
             margin-bottom: 10px;
             font-weight: 100;
           }
-          .btn-search {
+          .btn-rate {
+            width: 100%;
             background: #56e8a1;
             color: #fff;
             font-size: 20px;
@@ -126,107 +212,3 @@ export default function RateDelivery({ setState }) {
     </div>
   );
 }
-
-const SearchBusiness = () => {
-  const [address, setAddress] = useState("");
-
-  let handleChange = (address) => setAddress(address);
-  let handleSelect = (address) => {
-    geocodeByAddress(address)
-      .then((results) => getLatLng(results[0]))
-      .then((latLng) => console.log("Success", latLng))
-      .catch((error) => console.error("Error", error));
-  };
-  return (
-    <>
-      <PlacesAutocomplete
-        value={address}
-        onChange={handleChange}
-        onSelect={handleSelect}
-        debounce={500}
-      >
-        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-          <>
-            <input
-              className="text-input"
-              {...getInputProps({
-                placeholder: "business's name or address",
-              })}
-            />
-
-            <div>
-              {loading && <div>Loading...</div>}
-              {suggestions.map((suggestion) => {
-                // return console.log(suggestion);
-                return (
-                  <div
-                    key={shortid.generate()}
-                    {...getSuggestionItemProps(suggestion)}
-                  >
-                    <span>{suggestion.description}</span>
-                  </div>
-                );
-              })}
-            </div>
-          </>
-        )}
-      </PlacesAutocomplete>{" "}
-      <style jsx>
-        {`
-          input {
-            background-color: #ededed;
-            border: none;
-            padding: 10px;
-            border-radius: 3px;
-            opacity: 0.5;
-            font-size: 18px;
-            text-align: center;
-            margin-bottom: 20px;
-          }
-          input::placeholder {
-            text-align: center;
-            font-size: 18px;
-            font-weight: lighter;
-          }
-          input:focus {
-            background-color: #fff;
-          }
-        `}
-      </style>
-    </>
-  );
-};
-
-const SearchPerson = () => {
-  return (
-    <>
-      <input
-        className="text-input"
-        autoComplete="false"
-        placeholder="name or username"
-      />
-      <style jsx>
-        {`
-          input {
-            background-color: #ededed;
-            border: none;
-            padding: 10px;
-            border-radius: 3px;
-            opacity: 0.5;
-            font-size: 18px;
-            text-align: center;
-            margin-bottom: 20px;
-          }
-          input::placeholder {
-            text-align: center;
-            font-size: 18px;
-            font-weight: lighter;
-          }
-          input:focus {
-            background-color: #fff;
-          }
-        `}
-      </style>
-    </>
-  );
-};

@@ -15,8 +15,8 @@ export default function Main() {
           <Image
             src="/delivery.svg"
             alt="ratemydelivery.com"
-            width={200}
-            height={200}
+            width={250}
+            height={250}
           />
           <h4 className={styles.description}>
             A place where you can rate every delivery you get.

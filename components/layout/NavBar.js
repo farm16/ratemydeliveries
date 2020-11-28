@@ -5,9 +5,9 @@ import SearchBar from "../SearchBar";
 export const NavBar = () => (
   <div className={styles.navbarContainer}>
     <div className={styles.navBarLogo}>
-      <Link href="/">
+      <a href="/">
         <p>RMD</p>
-      </Link>
+      </a>
     </div>
     <SearchBar />
 
