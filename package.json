@@ -10,11 +10,11 @@
   "dependencies": {
     "@blueprintjs/core": "^3.36.0",
     "firebase": "^8.1.1",
+    "formik": "^2.2.5",
     "google-map-react": "^2.1.9",
     "next": "^10.0.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-
     "react-places-autocomplete": "^7.3.0",
     "react-stars": "^2.2.5",
     "shortid": "^2.2.16"

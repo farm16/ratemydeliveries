@@ -1,24 +1,30 @@
 import shortid from "shortid";
 import PlacesAutocomplete from "react-places-autocomplete";
 import { fetchBusinessInfo, getSessionToken } from "../../helpers";
-const sessionToken = getSessionToken();
 export const BusinessLookUpInput = ({ businessInfo, setBusinessInfo }) => {
+  const sessionToken = new google.maps.places.AutocompleteSessionToken();
   let handleChange = (address) =>
     setBusinessInfo({
       ...setBusinessInfo,
       search: address,
     });
   let handleSelect = (address, placeId) => {
-    fetchBusinessInfo(placeId)
+    fetchBusinessInfo(placeId, sessionToken)
       .then((data) => {
         console.log(sessionToken);
         console.log(data);
         setBusinessInfo({
           name: data.name,
           icon: data.icon,
-          business_status: data.business_status,
+          business_status:
+            typeof data.business_status === "undefined"
+              ? ""
+              : data.business_status,
           formatted_address: data.formatted_address,
-          formatted_phone_number: data.formatted_phone_number,
+          formatted_phone_number:
+            typeof data.formatted_phone_number === "undefined"
+              ? ""
+              : data.formatted_phone_number,
           place_id: data.place_id,
           search: data.formatted_address,
         });

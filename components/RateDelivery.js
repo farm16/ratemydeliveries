@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Icon } from "@blueprintjs/core";
 import ReactStars from "react-stars";
 import { useGetBusiness } from "../hooks";
-// import { calculateAverageRate } from "../helpers";
+import { rateBusiness } from "../helpers";
 import { DeliveryPersonLookUpInput } from "./inputs/DeliveryPersonLookUpInput";
 import { BusinessLookUpInput } from "./inputs/BusinessLookUpInput";
 
@@ -26,11 +26,36 @@ export default function RateDelivery({ setState }) {
 
   const handleSendRate = (e) => {
     e.preventDefault();
-    console.log({ businessInfo, name, speed, quality, courtesy });
-
-    /*
-    console.log({ businessInfo, name, speed, quality, courtesy });
-    */
+    rateBusiness({
+      ...businessInfo,
+      deliveryInfo: {
+        deliveryPeople: [
+          { firstName: name, lastName: "", email: "", photo: "" },
+        ],
+      },
+      ratings: [{ speed, quality, courtesy }],
+      ratingInfo: {
+        totalAverage: 0,
+        speedAverage: 0,
+        qualityAverage: 0,
+        courtesyAverage: 0,
+      },
+    });
+    console.log({
+      ...businessInfo,
+      deliveryInfo: {
+        deliveryPeople: [
+          { firstName: name, lastName: "", email: "", photo: "" },
+        ],
+      },
+      ratingInfo: {
+        ratings: [{ speed, quality, courtesy }],
+        totalAverage: 0,
+        speedAverage: 0,
+        qualityAverage: 0,
+        courtesyAverage: 0,
+      },
+    });
   };
   return (
     <div className="container">
