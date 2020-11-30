@@ -9,7 +9,7 @@ import { BusinessLookUpInput } from "./inputs/BusinessLookUpInput";
 export default function RateDelivery({ setState }) {
   // const { business } = useGetBusiness("mi resturant");
   // console.log("->", business);
-  const [rateByName, setrateByName] = useState(true);
+  const [rateByName, setrateByName] = useState(false);
   const [speed, setSpeed] = useState(0.0);
   const [quality, setQuality] = useState(0.0);
   const [courtesy, setCourtesy] = useState(0.0);

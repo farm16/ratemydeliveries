@@ -56,7 +56,7 @@ export default function Home() {
   );
 }
 
-const Styles = () => (
+export const Styles = () => (
   <Fragment>
     <style jsx>{`
       .container {
