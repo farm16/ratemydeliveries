@@ -5,7 +5,7 @@ import { Footer } from "../components/layout/Footer";
 import { Signup } from "../components/modals/Signup";
 import { Login } from "../components/modals/Login";
 import { Fragment, useEffect, useState } from "react";
-import { checkUser } from "../helpers";
+// import { checkUser } from "../helpers";
 import { firebase } from "../firebase";
 import { Logout } from "../components/modals/Logout";
 export default function Home() {
@@ -59,7 +59,7 @@ export default function Home() {
 export const Styles = () => (
   <Fragment>
     <style jsx>{`
-      .container {
+      .container {<div>under Maintenance</div>;
         min-height: 100vh;
         display: flex;
         flex-direction: column;
